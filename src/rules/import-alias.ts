@@ -193,6 +193,11 @@ const importAliasRule: Rule.RuleModule = {
 
     create: (context: Rule.RuleContext) => {
         const cwd = context.getCwd();
+        const { options } = context;
+        const ignoredFiles =
+            options[0].ignoredFiles || options[0].ignoreBarrel
+                ? ["index.ts"]
+                : [];
         const {
             aliasConfigPath,
             aliasImportFunctions = schemaProperties.aliasImportFunctions
@@ -210,6 +215,7 @@ const importAliasRule: Rule.RuleModule = {
         }
 
         const filepath = resolve(context.getFilename());
+        const filename = filepath.split("/").at(-1) ?? "";
         const absoluteDir = dirname(filepath);
 
         if (!existsSync(absoluteDir)) {
@@ -232,6 +238,10 @@ const importAliasRule: Rule.RuleModule = {
         ) => {
             // preserve user quote style
             const quotelessRange: AST.Range = [moduleStart + 1, moduleEnd - 1];
+
+            if (ignoredFiles.includes(filename)) {
+                return undefined;
+            }
 
             if (
                 isPermittedRelativeImport(
