@@ -5,6 +5,7 @@
         "clean": "rimraf build",
         "husky": "is-ci || husky install",
         "prepare": "npm run husky && npm run clean && npm run build",
+        "lint": "npx run lint-staged",
         "test": "jest",
         "coverage": "jest --coverage"
     },
@@ -53,12 +54,20 @@
         "typescript": "^4.6.2"
     },
     "repository": {
-        "url": "https://github.com/Limegrass/eslint-plugin-import-alias",
+        "url": "https://github.com/o5r/eslint-plugin-import-alias",
         "type": "git"
     },
-    "name": "@limegrass/eslint-plugin-import-alias",
-    "version": "1.1.0",
-    "description": "Rewrite imports to TSConfig aliases",
-    "author": "Limegrass",
+    "name": "@o5r/eslint-plugin-import-alias",
+    "version": "1.0.0",
+    "description": "Rewrite imports to TSConfig aliases, and allow to ignore some imports",
+    "author": "o5r",
+    "keywords": [
+        "eslint",
+        "plugin",
+        "import",
+        "alias",
+        "tsconfig",
+        "typescript"
+    ],
     "license": "MIT"
 }
